@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+<context:component-scan base-package="part02_mybatis"></context:component-scan>
+
+<!--[1] DataSource 빈 선언  -->
+<!-- <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+<property name="driverClassName" value="oracle.jdbc.OracleDriver"/>
+<property name="url" value="jdbc:oracle:thin:@127.0.0.1:1521:xe"/>
+<property name="username" value="hr"/>
+<property name="password" value="a1234"/>
+
+</bean> -->
+
+
+<!--[2] SqlSessionFactoryBean 빈 선언  -->
+<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+<property name="dataSource" ref="dataSource"/>
+
+<!-- <property name="mapperLocations">
+<list>
+<value>classpath:part02_mybatis/memMapper.xml</value>
+<value>classpath:part02_mybatis/testMapper.xml</value>
+</list>
+</property> -->
+
+<property name="configLocation" value="classpath:part02_mybatis/configuration.xml"/>
+
+</bean>
+
+
+<!--[3] SqlSessionTemplate 빈 선언  -->
+<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+<constructor-arg ref="sqlSessionFactory"/>
+</bean>
+
+<!--[4] MemDaoImp 빈 선언  -->
+<!-- <bean id="dao" class="part02_mybatis.MemDAOImp">
+<property name="sqlSession" ref="sqlSession"/>
+</bean> -->
+
+<!--[5] Controller 빈 선언  -->
+<!-- <bean class="part02_mybatis.MemController">
+<property name="dao" ref="dao"/>
+</bean> -->
+
+<!--[6] view 빈 선언 -->
+<!-- <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/views/" />
+		<property name="suffix" value=".jsp" />
+	</bean> -->
+
+</beans>
